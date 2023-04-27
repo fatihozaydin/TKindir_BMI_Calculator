@@ -1,62 +1,31 @@
-from tkinter import * 
-def mainwindow():
-    main = Tk()
-    main.geometry("300x400")
-    main.title("BMI CALCULATOR")
-    main.rowconfigure((0,1,2,3,4), weight=1)
-    main.columnconfigure(0, weight=1)
-    main.config(bg="light blue")
-    main.option_add("*Font", "times 15 bold")
-    return main
+import tkinter as tk
 
-def createframe(main):
-    Label(main, text="BMI CALCULATOR", bg="light blue").grid(row=0, column=0, sticky=N)
-    frame_1 = Frame(main, bg="white")
-    frame_1.grid(row=1, column=0, sticky="NEWS", padx=10, pady=10, ipady=5)
+def calculate_bmi():
+    height = float(height_entry.get())
+    weight = float(weight_entry.get())
+    bmi = weight / (height/100)**2
+    result_label.config(text="BMI: {:.2f}".format(bmi))
 
-    frame_2 = Frame(main, bg="white")
-    frame_2.grid(row=2, column=0, sticky="NEWS", padx=10, pady=10, ipady=5)
+# Create a GUI window
+window = tk.Tk()
+window.title("BMI Calculator")
 
-    frame_3 = Frame(main, bg="white")
-    frame_3.grid(row=3, column=0, sticky="NEWS", padx=10, pady=10, ipady=20)
+# Create GUI widgets
+height_label = tk.Label(window, text="Height (cm):")
+height_label.pack()
+height_entry = tk.Entry(window)
+height_entry.pack()
 
-    frame_bottom = Frame(main, bg="white")
-    frame_bottom.grid(row=4, column=0, sticky="NEWS", padx=10, pady=10, ipady=20)
-    frame_bottom.columnconfigure(0, weight=0)
-    frame_bottom.columnconfigure(1, weight=2)
-    return frame_1, frame_2, frame_3, frame_bottom
+weight_label = tk.Label(window, text="Weight (kg):")
+weight_label.pack()
+weight_entry = tk.Entry(window)
+weight_entry.pack()
 
-def widget(frame_1, frame_2, frame_3, frame_bottom):
-    Label(frame_1, text="HEIGHT:(cm.)").grid(row=0, column=0, padx=5, pady=5, sticky=W)
-    ent_height = Entry(frame_1, bg="white", textvariable=height_var)
-    ent_height.grid(row=1, column=0, ipadx=40, padx=10, sticky=N+W)
+calculate_button = tk.Button(window, text="Calculate BMI", command=calculate_bmi)
+calculate_button.pack()
 
-    Label(frame_2, text="WEIGHT:(kg.)").grid(row=0, column=0, padx=5, pady=5, sticky=W)
-    ent_weight = Entry(frame_2, bg="white", textvariable=weight_var)
-    ent_weight.grid(row=1, column=0, ipadx=40, padx=10, sticky=N+W)
+result_label = tk.Label(window, text="")
+result_label.pack()
 
-    Button(frame_bottom, text="Calculate", highlightbackground="green", fg="black", command=find_bmi).grid(row=2, column=1)
-
-    show_data = Label(frame_bottom, bg="white")
-    return ent_height, ent_weight
-
-
-def find_bmi():
-    global bmi
-    bmi = 0
-    height = height_var.get()
-    weight = weight_var.get()
-    height = float(height) / 100.0
-    bmi = float(weight) / height ** 2
-    print("BMI = %0.2f" % bmi)
-
-bmi = 0   
-main = mainwindow()
-height_var = StringVar()
-height_var.set("1")
-weight_var = StringVar()
-weight_var.set("1")
-frame_1, frame_2, frame_3, frame_bottom = createframe(main)
-ent_height, ent_weight = widget(frame_1, frame_2, frame_3, frame_bottom)
-find_bmi()
-main.mainloop()
+# Start the GUI event loop
+window.mainloop()
