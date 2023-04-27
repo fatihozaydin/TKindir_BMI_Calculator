@@ -11,12 +11,12 @@ window = tk.Tk()
 window.title("BMI Calculator")
 
 # Create GUI widgets
-height_label = tk.Label(window, text="Height (cm):")
+height_label = tk.Label(window, text="Height (cm):" )
 height_label.pack()
 height_entry = tk.Entry(window)
 height_entry.pack()
 
-weight_label = tk.Label(window, text="Weight (kg):")
+weight_label = tk.Label(window, text="Weight (kg):", width=30, height=2)
 weight_label.pack()
 weight_entry = tk.Entry(window)
 weight_entry.pack()
